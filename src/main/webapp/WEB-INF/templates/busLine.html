@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>新增线路</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" type="text/css" href="/resources/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/assets/bootstrap-table/src/bootstrap-table.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{resources/assets/examples.css}">
+    <link rel="stylesheet" href="/resources/assets/dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="/resources/assets/dist/css/skins/skin-blue.min.css">
+    <script src="/resources/assets/jquery.min.js"></script>
+    <script th:src="@{resources/assets/bootstrap/js/bootstrap.min.js}"></script>
+    <script th:src="@{resources/assets/bootstrap-table/dist/bootstrap-table.js}"></script>
+    <script th:src="@{resources/ga.js}"></script>
+</head>
+<body class="hold-transition skin-blue sidebar-mini" onload="selChange()">
+
+<div class="wrapper">
+    <header class="main-header">
+
+        <!-- Logo -->
+        <a href="index2.html" class="logo">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini"><b>A</b>LT</span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg"><b>Admin</b>LTE</span>
+        </a>
+
+        <!-- Header Navbar -->
+        <nav class="navbar navbar-static-top" role="navigation">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">Toggle navigation</span>
+            </a>
+            <!-- Navbar Right Menu -->
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown user user-menu">
+                        <!-- Menu Toggle Button -->
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <span class="hidden-xs">Alexander Pierce</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <!-- The user image in the menu -->
+                            <li class="user-header">
+                                <p>
+                                    Alexander Pierce - Web Developer
+                                    <small>Member since Nov. 2012</small>
+                                </p>
+                            </li>
+                            <!-- Menu Body -->
+                            <li class="user-body">
+                                <div class="row">
+                                    <div class="col-xs-4 text-center">
+                                        <a href="#">Followers</a>
+                                    </div>
+                                    <div class="col-xs-4 text-center">
+                                        <a href="#">Sales</a>
+                                    </div>
+                                    <div class="col-xs-4 text-center">
+                                        <a href="#">Friends</a>
+                                    </div>
+                                </div>
+                                <!-- /.row -->
+                            </li>
+                            <!-- Menu Footer-->
+                            <li class="user-footer">
+                                <div class="pull-left">
+                                    <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                </div>
+                                <div class="pull-right">
+                                    <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+    </header>
+
+    <aside class="main-sidebar">
+        <section class="sidebar">
+            <ul class="sidebar-menu">
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-link"></i>
+                        <span>用户管理</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="/addUser"><i class="fa fa-circle-o"></i>新增用户</a></li>
+                        <li><a href="/manageUser"><i class="fa fa-circle-o"></i>查询用户</a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-link"></i>
+                        <span>公交线路管理</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="/busLine"><i class="fa fa-circle-o"></i>新增线路</a></li>
+                        <li><a href="/starter"><i class="fa fa-circle-o"></i>查询线路</a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-link"></i>
+                        <span>线路动态管理</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="/news"><i class="fa fa-circle-o"></i>查询线路动态</a></li>
+                        <li><a href="/addNews"><i class="fa fa-circle-o"></i>发布线路动态</a></li>
+                    </ul>
+                </li>
+                <li class="treeview active">
+                    <a href="#">
+                        <i class="fa fa-link"></i>
+                        <span>线路评论管理</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="/comment"><i class="fa fa-circle-o"></i>查询线路评论</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+    </aside>
+
+    <div class="content-wrapper">
+        <section class="content-header">
+            <h1>
+                线路评论管理
+                <small>查询线路评论</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
+                <li class="active">Here</li>
+            </ol>
+        </section>
+
+        <section class="content" style="height: 800px">
+            <div class="col-md-6">
+                <div class="box box-info">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">新增线路</h3>
+                    </div>
+                    <form id="addBusLine_form" class="form-horizontal">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="busLineName" class="col-sm-3 control-label">线路名称</label>
+
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="busLineName" name="busLineName"
+                                           placeholder="线路名称">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="startStation" class="col-sm-3 control-label">起点</label>
+
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="startStation" name="startStation"
+                                           placeholder="起点">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="endStation" class="col-sm-3 control-label">终点</label>
+
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="endStation" name="endStation"
+                                           placeholder="终点">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="startTime" class="col-sm-3 control-label">发车时间</label>
+
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="startTime" name="startTime"
+                                           placeholder="发车时间">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="remarks" class="col-sm-3 control-label">备注</label>
+
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="remarks" name="remarks"
+                                           placeholder="备注">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="description" class="col-sm-3 control-label">线路描述</label>
+
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="description" name="description"
+                                           placeholder="描述">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="company" class="col-sm-3 control-label">所属公司</label>
+
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="company" name="company"
+                                           placeholder="所属公司">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone" class="col-sm-3 control-label">公司电话</label>
+
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="phone" name="phone"
+                                           placeholder="电话">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="busNumber" class="col-sm-3 control-label">公交车数量</label>
+
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="busNumber" name="busNumber"
+                                           placeholder="数量">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="distance" class="col-sm-3 control-label">距线下一站距离</label>
+
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="distance" name="distance"
+                                           placeholder="距离">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="price" class="col-sm-3 control-label">票价</label>
+
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="price" name="price"
+                                           placeholder="票价">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-default">清空</button>
+                            <button type="button" class="btn btn-info pull-right" onclick="addBusLine()">提交</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <!-- Horizontal Form -->
+                <div class="box box-info">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">新增站点</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <form id="addBusStation_form" class="form-horizontal">
+                        <div id="addBusStation_body" class="box-body">
+                            <div class="form-group">
+                                <label for="busLine" class="col-sm-3 control-label">线路名称</label>
+                                <div class="col-sm-9">
+                                    <select id="busLine" name="busLineId" class="form-control"
+                                            onchange="busLineInfo(this)">
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="busStationName" class="col-sm-3 control-label">站点名称</label>
+
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="busStationName" name="busStationName"
+                                           placeholder="站点名称">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="seqNumber" class="col-sm-3 control-label">站点编号</label>
+
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="seqNumber" name="seqNumber"
+                                           placeholder="站点编号">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="arrivalTime" class="col-sm-3 control-label">到达时间</label>
+
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="arrivalTime" name="arrivalTime"
+                                           placeholder="到达时间">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="remarks1" class="col-sm-3 control-label">备注</label>
+
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="remarks1" name="remarks"
+                                           placeholder="备注">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-default">清空</button>
+                            <button type="button" class="btn btn-info pull-right" onclick="addStation()">提交</button>
+                        </div>
+                        <!-- /.box-footer -->
+                    </form>
+                </div>
+                <!-- /.box -->
+            </div>
+        </section>
+    </div>
+
+    <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+            公交线路查询系统管理端
+        </div>
+        <strong>Copyright &copy; 2016 <a href="#">Company</a>.</strong>
+    </footer>
+    <script src="/resources/assets/dist/js/app.min.js"></script>
+</div>
+
+<script>
+
+    var $table = $('#table');
+    var busLineData;
+
+    function selChange() {
+        var data = $.ajax({
+            url: '/busLineName',
+            type: 'get',
+            dataType: 'json',
+            async: false,
+            success: function (data) {
+            },
+            error: function () {
+            }
+        });
+        $.each(data.responseJSON, function (index, value) {
+            $('#busLine').append("<option value='" + value.busLineId + "'>" + value.busLineName + " - " + value.startStation + "</option>");
+        });
+        busLineData = data.responseJSON;
+    }
+
+    function busLineInfo(obj) {
+        var oi = obj.options[obj.selectedIndex].value;
+        $.each(busLineData, function (index, value) {
+            if (oi == value.busLineId) {
+                $('#div1').remove();
+                $('#div2').remove();
+                $('#addBusStation_body').append("<div id='div1' class='form-group'>" +
+                    "<label class='col-sm-3 control-label'>开始站点</label>" +
+                    "<div class='col-sm-9'>" +
+                    "<input type='text' class='form-control' id='input1' name='startStation' value='" + value.startStation + "' disabled>" +
+                    "</div></div>" +
+                    "<div id='div2' class='form-group'>" +
+                    "<label class='col-sm-3 control-label'>到达站点</label>" +
+                    "<div class='col-sm-9'>" +
+                    "<input type='text' class='form-control' id='input2' name='endStation' value='" + value.endStation + "' disabled>" +
+                    "</div></div>");
+            }
+        });
+    }
+
+    function addBusLine() {
+        var params = $("#addBusLine_form").serializeArray();
+        $.ajax({
+            type: 'get',
+            url: '/addBusLine',
+            data: params,
+            async: false,
+            success: function (data) {
+            },
+            error: function (e) {
+            }
+        });
+    }
+
+    function addStation() {
+        $("#input1").removeAttr("disabled");
+        $("#input2").removeAttr("disabled");
+        var params = $("#addBusStation_form").serializeArray();
+        $("#input1").attr("disabled", true);
+        $("#input2").attr("disabled", true);
+        $.ajax({
+            type: 'get',
+            url: '/addBusStation',
+            data: params,
+            async: false,
+            success: function (data) {
+            },
+            error: function (e) {
+            }
+        });
+    }
+
+    function search() {
+        var oi = $("#way").val();
+        if (oi == "1") {
+            $table.bootstrapTable('refresh', {url: '/searchByBusLine?busLineName=' + $("#busLineName").val()});
+        } else if (oi == "2") {
+            $table.bootstrapTable('refresh', {url: '/searchByBusStation?busStation=' + $("#busStation").val()});
+        } else if (oi == "3") {
+            $table.bootstrapTable('refresh', {url: '/searchByStartAndEnd?startStation=' + $("#startStation").val() + '&endStation=' + $("#startStation").val()});
+        } else if (oi == "4") {
+            data = $("#busLineId").val();
+        }
+    }
+
+    function detailFormatter(index, row) {
+        var busLineId;
+        $.each(row, function (key, value) {
+            if (key == 'busLineId') {
+                busLineId = value;
+            }
+        });
+        var html = [];
+        var data = $.ajax({
+            url: '/busStationData',
+            type: 'get',
+            data: 'busLineId=' + busLineId,
+            dataType: 'text',
+            async: false,
+            success: function (data) {
+            },
+            error: function () {
+            }
+        });
+        html.push(data.responseText);
+        return html.join('');
+    }
+</script>
+</body>
+</html>

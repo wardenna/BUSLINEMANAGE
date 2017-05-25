@@ -1,0 +1,18 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="BUSLINEMANAGE:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/BUSLINEMANAGE_war_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="BUSLINEMANAGE/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="BUSLINEMANAGE" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Gradle: org.springframework:spring-core:4.3.8.RELEASE" />
+          <element id="library" level="project" name="Gradle: org.springframework:spring-webmvc:4.3.8.RELEASE" />
+          <element id="library" level="project" name="ojdbc6_g" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

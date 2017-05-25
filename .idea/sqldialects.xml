@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/src/main/java/com/zhaokun/busLine/data/db/jdbc/JdbcBusLineRepository.java" dialect="Oracle" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/zhaokun/busLine/data/db/jdbc/JdbcBusStationRepository.java" dialect="Oracle" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/zhaokun/busLine/data/db/jdbc/JdbcCommentRepository.java" dialect="Oracle" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/zhaokun/busLine/data/db/jdbc/JdbcNewsRepository.java" dialect="Oracle" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/zhaokun/busLine/data/db/jdbc/JdbcReplyRepository.java" dialect="Oracle" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/zhaokun/busLine/data/db/jdbc/JdbcUserRepository.java" dialect="Oracle" />
+  </component>
+</project>

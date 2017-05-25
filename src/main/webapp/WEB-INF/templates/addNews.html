@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>公交线路动态管理</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" type="text/css" href="/resources/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/assets/bootstrap-table/src/bootstrap-table.css}">
+    <link rel="stylesheet"
+          href="//rawgit.com/vitalets/x-editable/master/dist/bootstrap3-editable/css/bootstrap-editable.css">
+    <link rel="stylesheet" type="text/css" th:href="@{resources/assets/examples.css}">
+    <link rel="stylesheet" href="/resources/assets/dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="/resources/assets/dist/css/skins/skin-blue.min.css">
+    <script src="/resources/assets/jquery.min.js"></script>
+    <script th:src="@{resources/assets/bootstrap/js/bootstrap.min.js}"></script>
+    <script th:src="@{resources/assets/bootstrap-table/dist/bootstrap-table.js}"></script>
+    <script th:src="@{resources/ga.js}"></script>
+</head>
+<body class="hold-transition skin-blue sidebar-mini" onload="selChange()">
+
+<div class="wrapper">
+
+    <!-- Main Header -->
+    <header class="main-header">
+
+        <!-- Logo -->
+        <a href="index2.html" class="logo">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini"><b>A</b>LT</span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg"><b>Admin</b>LTE</span>
+        </a>
+
+        <!-- Header Navbar -->
+        <nav class="navbar navbar-static-top" role="navigation">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">Toggle navigation</span>
+            </a>
+            <!-- Navbar Right Menu -->
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown user user-menu">
+                        <!-- Menu Toggle Button -->
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <span class="hidden-xs">Alexander Pierce</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <!-- The user image in the menu -->
+                            <li class="user-header">
+                                <p>
+                                    Alexander Pierce - Web Developer
+                                    <small>Member since Nov. 2012</small>
+                                </p>
+                            </li>
+                            <!-- Menu Body -->
+                            <li class="user-body">
+                                <div class="row">
+                                    <div class="col-xs-4 text-center">
+                                        <a href="#">Followers</a>
+                                    </div>
+                                    <div class="col-xs-4 text-center">
+                                        <a href="#">Sales</a>
+                                    </div>
+                                    <div class="col-xs-4 text-center">
+                                        <a href="#">Friends</a>
+                                    </div>
+                                </div>
+                                <!-- /.row -->
+                            </li>
+                            <!-- Menu Footer-->
+                            <li class="user-footer">
+                                <div class="pull-left">
+                                    <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                </div>
+                                <div class="pull-right">
+                                    <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <aside class="main-sidebar">
+        <section class="sidebar">
+            <ul class="sidebar-menu">
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-link"></i>
+                        <span>用户管理</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="/addUser"><i class="fa fa-circle-o"></i>新增用户</a></li>
+                        <li><a href="/manageUser"><i class="fa fa-circle-o"></i>查询用户</a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-link"></i>
+                        <span>公交线路管理</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="/busLine"><i class="fa fa-circle-o"></i>新增线路</a></li>
+                        <li><a href="/starter"><i class="fa fa-circle-o"></i>查询线路</a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-link"></i>
+                        <span>线路动态管理</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="/news"><i class="fa fa-circle-o"></i>查询线路动态</a></li>
+                        <li><a href="/addNews"><i class="fa fa-circle-o"></i>发布线路动态</a></li>
+                    </ul>
+                </li>
+                <li class="treeview active">
+                    <a href="#">
+                        <i class="fa fa-link"></i>
+                        <span>线路评论管理</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="/comment"><i class="fa fa-circle-o"></i>查询线路评论</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+    </aside>
+
+    <div class="content-wrapper">
+        <section class="content-header">
+            <h1>
+                线路动态管理
+                <small>查询线路动态</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
+                <li class="active">Here</li>
+            </ol>
+        </section>
+
+        <section class="content">
+            <div class="col-md-6">
+                <!-- Horizontal Form -->
+                <div class="box box-info">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">发布线路动态</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <form id="addNews_form" class="form-horizontal">
+                        <div id="addNews_body" class="box-body">
+                            <div class="form-group">
+                                <label for="busLine" class="col-sm-3 control-label">线路名称</label>
+                                <div class="col-sm-9">
+                                    <select id="busLine" name="busLineId" class="form-control" onchange="busLineInfo(this)">
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="newsTitle" class="col-sm-3 control-label">标题</label>
+
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="newsTitle" name="newsTitle"
+                                           placeholder="标题">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="newsText" class="col-sm-3 control-label">内容</label>
+
+                                <div class="col-sm-9">
+                                    <textarea id="newsText" name="newsText" class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-default">清空</button>
+                            <button type="button" class="btn btn-info pull-right" onclick="addNews()">提交</button>
+                        </div>
+                        <!-- /.box-footer -->
+                    </form>
+                </div>
+                <!-- /.box -->
+            </div>
+
+        </section>
+    </div>
+    <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+            公交线路查询系统管理端
+        </div>
+        <strong>Copyright &copy; 2016 <a href="#">Company</a>.</strong>
+    </footer>
+    <!-- AdminLTE App -->
+    <script src="/resources/assets/dist/js/app.min.js"></script>
+</div>
+<script>
+
+    var $table = $('#table');
+    var busLineData;
+
+    window.operateEvents = {
+        'click #change': function (e, value, row, index) {
+            var data = $.ajax({
+                url: '/changeUser',
+                type: 'get',
+                data: row,
+                dataType: 'json',
+                async: false,
+                success: function (data) {
+                },
+                error: function () {
+                }
+            });
+        },
+        'click #delete': function (e, value, row, index) {
+            alert(row.newsId);
+            var data = $.ajax({
+                url: '/deleteNews',
+                type: 'get',
+                data: 'newsId=' + row.newsId,
+                dataType: 'json',
+                async: false,
+                success: function (data) {
+                },
+                error: function () {
+                }
+            });
+        }
+    };
+
+    function selChange() {
+        var data = $.ajax({
+            url: '/busLineName',
+            type: 'get',
+            dataType: 'json',
+            async: false,
+            success: function (data) {
+            },
+            error: function () {
+            }
+        });
+        $.each(data.responseJSON, function (index, value) {
+            $('#busLine').append("<option value='" + value.busLineId + "'>" + value.busLineName + " - " + value.startStation + "</option>");
+        });
+        busLineData = data.responseJSON;
+    }
+
+    function busLineInfo(obj) {
+        var oi = obj.options[obj.selectedIndex].value;
+        $.each(busLineData, function (index, value) {
+            if (oi == value.busLineId) {
+                $('#div1').remove();
+                $('#div2').remove();
+                $('#addBusStation_body').append("<div id='div1' class='form-group'>" +
+                    "<label class='col-sm-3 control-label'>开始站点</label>" +
+                    "<div class='col-sm-9'>" +
+                    "<input type='text' class='form-control' id='input1' name='startStation' value='" + value.startStation + "' disabled>" +
+                    "</div></div>" +
+                    "<div id='div2' class='form-group'>" +
+                    "<label class='col-sm-3 control-label'>到达站点</label>" +
+                    "<div class='col-sm-9'>" +
+                    "<input type='text' class='form-control' id='input2' name='endStation' value='" + value.endStation + "' disabled>" +
+                    "</div></div>");
+            }
+        });
+    }
+
+    function search() {
+        var oi = $("#way").val();
+        if (oi == "1") {
+            $table.bootstrapTable('refresh', {url: '/searchByBusLine?busLineName=' + $("#busLineName").val()});
+        } else if (oi == "2") {
+            $table.bootstrapTable('refresh', {url: '/searchByBusStation?busStation=' + $("#busStation").val()});
+        } else if (oi == "3") {
+            $table.bootstrapTable('refresh', {url: '/searchByStartAndEnd?startStation=' + $("#startStation").val() + '&endStation=' + $("#startStation").val()});
+        } else if (oi == "4") {
+            data = $("#busLineId").val();
+        }
+    }
+
+    function operateFormatter(value, row, index) {
+        return [
+            '<a id="reply" class="reply btn btn-default btn-xs" data-toggle="modal">',
+            '回复',
+            '</a>   ',
+            '<a id="delete" class="btn btn-danger btn-xs">',
+            '删除',
+            '</a>'
+        ].join('');
+    }
+
+
+    function addNews() {
+        var params = $("#addNews_form").serializeArray();
+        $.ajax({
+            type: 'get',
+            url: '/addNewsInfo',
+            data: params,
+            async: false,
+            success: function (data) {
+            },
+            error: function (e) {
+            }
+        });
+
+    }
+
+</script>
+</body>
+</html>

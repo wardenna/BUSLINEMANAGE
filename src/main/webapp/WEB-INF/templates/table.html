@@ -1,0 +1,170 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bootstrap Table Examples</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/assets/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" href="/resources/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/assets/bootstrap-table/src/bootstrap-table.css}">
+    <link rel="stylesheet" type="text/css" href="/resources/assets/bootstrap-editable.css">
+    <link rel="stylesheet" href="//rawgit.com/vitalets/x-editable/master/dist/bootstrap3-editable/css/bootstrap-editable.css">
+    <link rel="stylesheet" type="text/css" th:href="@{resources/assets/examples.css}">
+    <script th:src="@{resources/assets/jquery.min.js}"></script>
+    <script th:src="@{resources/assets/bootstrap/js/bootstrap.min.js}"></script>
+    <script th:src="@{resources/assets/bootstrap-table/dist/bootstrap-table.js}"></script>
+    <script src="/resources/assets/bootstrap-table/src/extensions/editable/bootstrap-table-editable.js"></script>
+    <script src="/resources/assets/bootstrap-editable.js"></script>
+    <script th:src="@{resources/ga.js}"></script>
+</head>
+<body>
+<div class="container">
+    <h1>Bootstrap Table Examples <a href="https://github.com/wenzhixin/bootstrap-table-examples" class="btn btn-primary" role="button" target="_blank">Learn more &raquo;</a></h1>
+    <div id="toolbar">
+        <button id="remove" class="btn btn-danger" disabled>
+            <i class="glyphicon glyphicon-remove"></i> Delete
+        </button>
+    </div>
+    <table data-toggle="table"
+           data-url="/data.json">
+        <thead>
+        <tr>
+            <th data-field="id">Item ID</th>
+            <th data-field="name">Item Name</th>
+            <th data-field="price">Item Price</th>
+        </tr>
+        </thead>
+    </table>
+
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <div class="container">
+        <label class="col-sm-3">
+            <select id="way" class="form-control" onchange="selChange(this)">
+                <option value="1">线路查询</option>
+                <option value="2">站点查询</option>
+                <option value="3">起始点查询</option>
+                <option value="4">模糊查询</option>
+            </select>
+        </label>
+
+        <form id="form" class="col-sm-9 form-inline">
+        </form>
+    </div>
+
+
+    <br>
+    <br>
+
+    <table id="table"
+           data-toggle="table"
+           data-detail-view="true"
+           data-detail-formatter="detailFormatter"
+           data-striped="true"
+           data-search="true"
+           data-side-pagination="server"
+           data-pagination="true"
+           data-page-list="[1, 2]"
+           data-url="/data1"
+           data-show-export="true">
+        <thead>
+        <tr>
+            <th data-field="busLineName" data-editable="true">线路名称</th>
+            <th data-field="startStation" data-editable="true">起点</th>
+            <th data-field="endStation" data-editable="true">终点</th>
+            <th data-field="startTime" data-editable="true">发车时间</th>
+        </tr>
+        </thead>
+    </table>
+</div>
+
+<script>
+    var $table = $('#table');
+
+    function selChange(obj) {
+
+        var oi = obj.options[obj.selectedIndex].value;
+
+        var ot = obj.options[obj.selectedIndex].innerText;
+        if (oi == "1") {
+            document.getElementById("form").innerHTML="<div class='form-group'>" +
+                "<label for='busLineName'>线路名称</label>" +
+                "<input type='text' class='form-control' id='busLineName'>" +
+                "</div>" +
+                "<button type='button' class='btn btn-default' onclick='search()'>搜索</button>";
+        } else if (oi == "2") {
+            document.getElementById("form").innerHTML="<div class='form-group'>" +
+                "<label for='busStation'>站点名称</label>" +
+                "<input type='text' class='form-control' id='busStation'>" +
+                "</div>" +
+                "<button type='button' class='btn btn-default' onclick='search()'>搜索</button>";
+        } else if (oi == "3") {
+            document.getElementById("form").innerHTML="<div class='form-group'>" +
+                "<label for='startStation'>开始站点</label>" +
+                "<input type='text' class='form-control' id='startStation'>" +
+                "</div>" +
+                "<div class='form-group'>" +
+                "<label id='endStation'>到达站点</label>" +
+                "<input type='text' class='form-control' id='endStation'>" +
+                "</div>" +
+                "<button type='button' class='btn btn-default' onclick='search()'>搜索</button>";
+        } else if (oi == "4") {
+            document.getElementById("form").innerHTML="<div class='form-group'>" +
+                "<label for='exampleInputName2'>模糊查询</label>" +
+                "<input type='text' class='form-control'>" +
+                "</div>" +
+                "<button type='button' class='btn btn-default'>搜索</button>";
+        }
+    }
+
+    function search() {
+        var oi = $("#way").val();
+        if (oi == "1") {
+//            var data = $.ajax({
+//                url: '/searchByBusLine',
+//                type: 'get',
+//                data: "busLineName=" + $("#busLineName").val(),
+//                dataType: 'text',
+//                async: false,
+//                success: function (data) {
+//                },
+//                error: function () {
+//                }
+//            });
+            $table.bootstrapTable('refresh', {url: '/searchByBusLine?busLineName=' + $("#busLineName").val()});
+        } else if (oi == "2") {
+            $table.bootstrapTable('refresh', {url: '/searchByBusStation?busStation=' + $("#busStation").val()});
+        } else if (oi == "3") {
+            $table.bootstrapTable('refresh', {url: '/searchByStartAndEnd?startStation=' + $("#startStation").val() + '&endStation=' + $("#startStation").val()});
+        } else if (oi == "4") {
+            data = $("#busLineId").val();
+        }
+    }
+
+    function detailFormatter(index, row) {
+        var busLineId;
+        $.each(row, function (key, value) {
+            if (key == 'busLineId') {
+                busLineId = value;
+            }
+        });
+        var html = [];
+        var data = $.ajax({
+            url: '/busStationData',
+            type: 'get',
+            data: 'busLineId=' + busLineId ,
+            dataType: 'text',
+            async: false,
+            success: function (data) {
+            },
+            error: function () {
+            }
+        });
+        html.push(data.responseText);
+        return html.join('');
+    }
+</script>
+</body>
+</html>

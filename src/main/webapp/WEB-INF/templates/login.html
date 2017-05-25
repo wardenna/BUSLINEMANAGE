@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>登录</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="/resources/assets/bootstrap/css/bootstrap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/resources/assets/dist/css/AdminLTE.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="/resources/assets/plugins/iCheck/square/blue.css">
+</head>
+<body class="hold-transition login-page">
+<div class="login-box">
+    <div class="login-logo">
+        <p>公交线路查询系统管理端</p>
+    </div>
+    <div class="login-box-body">
+        <p class="login-box-msg">请输入登录信息</p>
+
+        <form id="login_form">
+            <div class="form-group has-feedback">
+                <input type="email" class="form-control" name="email" placeholder="Email">
+            </div>
+            <div class="form-group has-feedback">
+                <input type="password" class="form-control" name="userPassword" placeholder="Password">
+            </div>
+            <div class="row">
+                <div class="col-xs-8">
+                </div>
+                <!-- /.col -->
+                <div class="col-xs-4">
+                    <button type="button" class="btn btn-primary btn-block btn-flat" onclick="login()">登录</button>
+                </div>
+                <!-- /.col -->
+            </div>
+        </form>
+
+        <a href="#">I forgot my password</a><br>
+        <a href="/register" class="text-center">注册新账号</a>
+
+    </div>
+    <!-- /.login-box-body -->
+</div>
+
+<!-- jQuery 2.2.3 -->
+<script src="/resources/assets/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="/resources/assets/bootstrap/js/bootstrap.min.js"></script>
+<!-- iCheck -->
+<script src="/resources/assets/plugins/iCheck/icheck.min.js"></script>
+<script>
+    function login() {
+        var params = $("#login_form").serializeArray();
+        var data = $.ajax({
+            type: 'post',
+            url: '/loginData',
+            data: params,
+            async: false,
+            dataType: 'json',
+            success: function (data) {
+            },
+            error: function (e) {
+            }
+        });
+        if (data.responseJSON.userId != null) {
+            window.location.href="/starter";
+        } else {
+            window.location.href="/error";
+        }
+    }
+</script>
+</body>
+</html>

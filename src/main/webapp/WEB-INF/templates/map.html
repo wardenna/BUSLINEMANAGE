@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+        body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
+    </style>
+    <script src="/resources/assets/jquery.min.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=swbwk241IYobcC2391Uq4SIL2rnSIXcq"></script>
+    <title>地址解析</title>
+</head>
+<body onload="detailFormatter()">
+<div id="allmap"></div>
+</body>
+</html>
+<script type="text/javascript">
+
+    function detailFormatter() {
+        var busLineId = "33";
+
+        var data = $.ajax({
+            url: '/busStationData',
+            type: 'get',
+            data: 'busLineId=' + busLineId,
+            dataType: 'json',
+            async: false,
+            success: function (data) {
+            },
+            error: function () {
+            }
+        }).responseJSON;
+
+        // 百度地图API功能
+        var map = new BMap.Map("allmap");
+        var point = new BMap.Point(116.331398,39.897445);
+        map.centerAndZoom(point, 15);
+
+        $.each(data, function(index, value){
+            geo(value.busStationName);
+        });
+    }
+
+    function geo(address) {
+        // 创建地址解析器实例
+        var myGeo = new BMap.Geocoder();
+        // 将地址解析结果显示在地图上,并调整地图视野
+        myGeo.getPoint(address, function(point){
+            if (point) {
+                map.centerAndZoom(point, 14);
+                map.addOverlay(new BMap.Marker(point));
+            }else{
+                alert("您选择地址没有解析到结果!");
+            }
+        }, "西安市");
+    }
+
+    function addMarker(point){
+        var marker = new BMap.Marker(point);
+        map.addOverlay(marker);
+    }
+</script>

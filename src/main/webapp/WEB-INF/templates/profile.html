@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>个人主页</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" type="text/css" href="/resources/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/assets/bootstrap-table/src/bootstrap-table.css}">
+    <link rel="stylesheet" type="text/css" href="/resources/assets/bootstrap-editable.css">
+    <link rel="stylesheet" type="text/css" th:href="@{resources/assets/examples.css}">
+    <link rel="stylesheet" href="/resources/assets/dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="/resources/assets/dist/css/skins/skin-blue.min.css">
+    <script th:src="@{resources/assets/jquery.min.js}"></script>
+    <script th:src="@{resources/assets/bootstrap/js/bootstrap.min.js}"></script>
+    <script th:src="@{resources/assets/bootstrap-table/dist/bootstrap-table.js}"></script>
+    <script src="/resources/assets/bootstrap-table/src/extensions/editable/bootstrap-table-editable.js"></script>
+    <script src="/resources/assets/bootstrap-editable.js"></script>
+    <script th:src="@{resources/ga.js}"></script>
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+    <!-- Main Header -->
+    <header class="main-header">
+
+        <!-- Logo -->
+        <a href="index2.html" class="logo">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini"><b>A</b>LT</span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg"><b>Admin</b>LTE</span>
+        </a>
+
+        <!-- Header Navbar -->
+        <nav class="navbar navbar-static-top" role="navigation">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">Toggle navigation</span>
+            </a>
+            <!-- Navbar Right Menu -->
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown user user-menu">
+                        <!-- Menu Toggle Button -->
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <span class="hidden-xs">欢迎 <span th:text="${session.user.getUserName()}"></span></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <!-- The user image in the menu -->
+                            <li class="user-header">
+                                <p>
+                                    <span th:text="${session.user.getUserName()}"></span> - 管理员
+                                    <small></small>
+                                </p>
+                            </li>
+                            <!-- Menu Body -->
+                            <li class="user-body">
+                                <div class="row">
+                                    <div class="col-xs-4 text-center">
+                                        <a href="#">Followers</a>
+                                    </div>
+                                    <div class="col-xs-4 text-center">
+                                        <a href="#">Sales</a>
+                                    </div>
+                                    <div class="col-xs-4 text-center">
+                                        <a href="#">Friends</a>
+                                    </div>
+                                </div>
+                                <!-- /.row -->
+                            </li>
+                            <!-- Menu Footer-->
+                            <li class="user-footer">
+                                <div class="pull-left">
+                                    <a href="/profile" class="btn btn-default btn-flat">个人主页</a>
+                                </div>
+                                <div class="pull-right">
+                                    <a href="#" class="btn btn-default btn-flat">登出</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <aside class="main-sidebar">
+        <section class="sidebar">
+            <ul class="sidebar-menu">
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-link"></i>
+                        <span>用户管理</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="/addUser"><i class="fa fa-circle-o"></i>新增用户</a></li>
+                        <li><a href="/manageUser"><i class="fa fa-circle-o"></i>查询用户</a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-link"></i>
+                        <span>公交线路管理</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="/busLine"><i class="fa fa-circle-o"></i>新增线路</a></li>
+                        <li><a href="/starter"><i class="fa fa-circle-o"></i>查询线路</a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-link"></i>
+                        <span>线路动态管理</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="/news"><i class="fa fa-circle-o"></i>查询线路动态</a></li>
+                        <li><a href="/addNews"><i class="fa fa-circle-o"></i>发布线路动态</a></li>
+                    </ul>
+                </li>
+                <li class="treeview active">
+                    <a href="#">
+                        <i class="fa fa-link"></i>
+                        <span>线路评论管理</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="/comment"><i class="fa fa-circle-o"></i>查询线路评论</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+    </aside>
+
+    <div class="content-wrapper">
+        <section class="content-header">
+            <h1>
+                个人主页
+                <small>个人信息简介</small>
+            </h1>
+        </section>
+
+        <section class="content">
+
+            <div class="row">
+                <div class="col-md-3">
+
+                    <!-- Profile Image -->
+                    <div class="box box-primary">
+                        <div class="box-body box-profile">
+                            <img class="profile-user-img img-responsive img-circle" src="../../dist/img/user4-128x128.jpg" alt="User profile picture">
+
+                            <h3 class="profile-username text-center">Nina Mcintire</h3>
+
+                            <p class="text-muted text-center">Software Engineer</p>
+
+                            <ul class="list-group list-group-unbordered">
+                                <li class="list-group-item">
+                                    <b>Followers</b> <a class="pull-right">1,322</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Following</b> <a class="pull-right">543</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Friends</b> <a class="pull-right">13,287</a>
+                                </li>
+                            </ul>
+
+                            <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+
+                    <!-- About Me Box -->
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">About Me</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <strong><i class="fa fa-book margin-r-5"></i> Education</strong>
+
+                            <p class="text-muted">
+                                B.S. in Computer Science from the University of Tennessee at Knoxville
+                            </p>
+
+                            <hr>
+
+                            <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
+
+                            <p class="text-muted">Malibu, California</p>
+
+                            <hr>
+
+                            <strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>
+
+                            <p>
+                                <span class="label label-danger">UI Design</span>
+                                <span class="label label-success">Coding</span>
+                                <span class="label label-info">Javascript</span>
+                                <span class="label label-warning">PHP</span>
+                                <span class="label label-primary">Node.js</span>
+                            </p>
+
+                            <hr>
+
+                            <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
+
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+                <!-- /.col -->
+                <div class="col-md-9">
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#activity" data-toggle="tab">Activity</a></li>
+                            <li><a href="#timeline" data-toggle="tab">Timeline</a></li>
+                            <li><a href="#settings" data-toggle="tab">Settings</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="active tab-pane" id="activity">
+                                <!-- Post -->
+                                <div class="post">
+                                    <div class="user-block">
+                                        <img class="img-circle img-bordered-sm" src="../../dist/img/user1-128x128.jpg" alt="user image">
+                                        <span class="username">
+                          <a href="#">Jonathan Burke Jr.</a>
+                          <a href="#" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a>
+                        </span>
+                                        <span class="description">Shared publicly - 7:30 PM today</span>
+                                    </div>
+                                    <!-- /.user-block -->
+                                    <p>
+                                        Lorem ipsum represents a long-held tradition for designers,
+                                        typographers and the like. Some people hate it and argue for
+                                        its demise, but others ignore the hate as they create awesome
+                                        tools to help create filler text for everyone from bacon lovers
+                                        to Charlie Sheen fans.
+                                    </p>
+                                    <ul class="list-inline">
+                                        <li><a href="#" class="link-black text-sm"><i class="fa fa-share margin-r-5"></i> Share</a></li>
+                                        <li><a href="#" class="link-black text-sm"><i class="fa fa-thumbs-o-up margin-r-5"></i> Like</a>
+                                        </li>
+                                        <li class="pull-right">
+                                            <a href="#" class="link-black text-sm"><i class="fa fa-comments-o margin-r-5"></i> Comments
+                                                (5)</a></li>
+                                    </ul>
+
+                                    <input class="form-control input-sm" type="text" placeholder="Type a comment">
+                                </div>
+                                <!-- /.post -->
+
+                                <!-- Post -->
+                                <div class="post clearfix">
+                                    <div class="user-block">
+                                        <img class="img-circle img-bordered-sm" src="../../dist/img/user7-128x128.jpg" alt="User Image">
+                                        <span class="username">
+                          <a href="#">Sarah Ross</a>
+                          <a href="#" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a>
+                        </span>
+                                        <span class="description">Sent you a message - 3 days ago</span>
+                                    </div>
+                                    <!-- /.user-block -->
+                                    <p>
+                                        Lorem ipsum represents a long-held tradition for designers,
+                                        typographers and the like. Some people hate it and argue for
+                                        its demise, but others ignore the hate as they create awesome
+                                        tools to help create filler text for everyone from bacon lovers
+                                        to Charlie Sheen fans.
+                                    </p>
+
+                                    <form class="form-horizontal">
+                                        <div class="form-group margin-bottom-none">
+                                            <div class="col-sm-9">
+                                                <input class="form-control input-sm" placeholder="Response">
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <button type="submit" class="btn btn-danger pull-right btn-block btn-sm">Send</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- /.post -->
+
+                                <!-- Post -->
+                                <div class="post">
+                                    <div class="user-block">
+                                        <img class="img-circle img-bordered-sm" src="../../dist/img/user6-128x128.jpg" alt="User Image">
+                                        <span class="username">
+                          <a href="#">Adam Jones</a>
+                          <a href="#" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a>
+                        </span>
+                                        <span class="description">Posted 5 photos - 5 days ago</span>
+                                    </div>
+                                    <!-- /.user-block -->
+                                    <div class="row margin-bottom">
+                                        <div class="col-sm-6">
+                                            <img class="img-responsive" src="../../dist/img/photo1.png" alt="Photo">
+                                        </div>
+                                        <!-- /.col -->
+                                        <div class="col-sm-6">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <img class="img-responsive" src="../../dist/img/photo2.png" alt="Photo">
+                                                    <br>
+                                                    <img class="img-responsive" src="../../dist/img/photo3.jpg" alt="Photo">
+                                                </div>
+                                                <!-- /.col -->
+                                                <div class="col-sm-6">
+                                                    <img class="img-responsive" src="../../dist/img/photo4.jpg" alt="Photo">
+                                                    <br>
+                                                    <img class="img-responsive" src="../../dist/img/photo1.png" alt="Photo">
+                                                </div>
+                                                <!-- /.col -->
+                                            </div>
+                                            <!-- /.row -->
+                                        </div>
+                                        <!-- /.col -->
+                                    </div>
+                                    <!-- /.row -->
+
+                                    <ul class="list-inline">
+                                        <li><a href="#" class="link-black text-sm"><i class="fa fa-share margin-r-5"></i> Share</a></li>
+                                        <li><a href="#" class="link-black text-sm"><i class="fa fa-thumbs-o-up margin-r-5"></i> Like</a>
+                                        </li>
+                                        <li class="pull-right">
+                                            <a href="#" class="link-black text-sm"><i class="fa fa-comments-o margin-r-5"></i> Comments
+                                                (5)</a></li>
+                                    </ul>
+
+                                    <input class="form-control input-sm" type="text" placeholder="Type a comment">
+                                </div>
+                                <!-- /.post -->
+                            </div>
+                            <!-- /.tab-pane -->
+                            <div class="tab-pane" id="timeline">
+                                <!-- The timeline -->
+                                <ul class="timeline timeline-inverse">
+                                    <!-- timeline time label -->
+                                    <li class="time-label">
+                        <span class="bg-red">
+                          10 Feb. 2014
+                        </span>
+                                    </li>
+                                    <!-- /.timeline-label -->
+                                    <!-- timeline item -->
+                                    <li>
+                                        <i class="fa fa-envelope bg-blue"></i>
+
+                                        <div class="timeline-item">
+                                            <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
+
+                                            <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
+
+                                            <div class="timeline-body">
+                                                Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
+                                                weebly ning heekya handango imeem plugg dopplr jibjab, movity
+                                                jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
+                                                quora plaxo ideeli hulu weebly balihoo...
+                                            </div>
+                                            <div class="timeline-footer">
+                                                <a class="btn btn-primary btn-xs">Read more</a>
+                                                <a class="btn btn-danger btn-xs">Delete</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!-- END timeline item -->
+                                    <!-- timeline item -->
+                                    <li>
+                                        <i class="fa fa-user bg-aqua"></i>
+
+                                        <div class="timeline-item">
+                                            <span class="time"><i class="fa fa-clock-o"></i> 5 mins ago</span>
+
+                                            <h3 class="timeline-header no-border"><a href="#">Sarah Young</a> accepted your friend request
+                                            </h3>
+                                        </div>
+                                    </li>
+                                    <!-- END timeline item -->
+                                    <!-- timeline item -->
+                                    <li>
+                                        <i class="fa fa-comments bg-yellow"></i>
+
+                                        <div class="timeline-item">
+                                            <span class="time"><i class="fa fa-clock-o"></i> 27 mins ago</span>
+
+                                            <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
+
+                                            <div class="timeline-body">
+                                                Take me to your leader!
+                                                Switzerland is small and neutral!
+                                                We are more like Germany, ambitious and misunderstood!
+                                            </div>
+                                            <div class="timeline-footer">
+                                                <a class="btn btn-warning btn-flat btn-xs">View comment</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!-- END timeline item -->
+                                    <!-- timeline time label -->
+                                    <li class="time-label">
+                        <span class="bg-green">
+                          3 Jan. 2014
+                        </span>
+                                    </li>
+                                    <!-- /.timeline-label -->
+                                    <!-- timeline item -->
+                                    <li>
+                                        <i class="fa fa-camera bg-purple"></i>
+
+                                        <div class="timeline-item">
+                                            <span class="time"><i class="fa fa-clock-o"></i> 2 days ago</span>
+
+                                            <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
+
+                                            <div class="timeline-body">
+                                                <img src="http://placehold.it/150x100" alt="..." class="margin">
+                                                <img src="http://placehold.it/150x100" alt="..." class="margin">
+                                                <img src="http://placehold.it/150x100" alt="..." class="margin">
+                                                <img src="http://placehold.it/150x100" alt="..." class="margin">
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!-- END timeline item -->
+                                    <li>
+                                        <i class="fa fa-clock-o bg-gray"></i>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- /.tab-pane -->
+
+                            <div class="tab-pane" id="settings">
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <label for="inputName" class="col-sm-2 control-label">Name</label>
+
+                                        <div class="col-sm-10">
+                                            <input type="email" class="form-control" id="inputName" placeholder="Name">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+
+                                        <div class="col-sm-10">
+                                            <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputName" class="col-sm-2 control-label">Name</label>
+
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="inputName" placeholder="Name">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputExperience" class="col-sm-2 control-label">Experience</label>
+
+                                        <div class="col-sm-10">
+                                            <textarea class="form-control" id="inputExperience" placeholder="Experience"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputSkills" class="col-sm-2 control-label">Skills</label>
+
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="inputSkills" placeholder="Skills">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10">
+                                            <button type="submit" class="btn btn-danger">Submit</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- /.tab-pane -->
+                        </div>
+                        <!-- /.tab-content -->
+                    </div>
+                    <!-- /.nav-tabs-custom -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+
+        </section>
+    </div>
+    <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+            公交线路查询系统管理端
+        </div>
+        <strong>Copyright &copy; 2016 <a href="#">Company</a>.</strong>
+    </footer>
+    <!-- AdminLTE App -->
+    <script src="/resources/assets/dist/js/app.min.js"></script>
+</div>
+<script>
+    var $table = $('#table');
+
+    window.operateEvents = {
+        'click #change': function (e, value, row, index) {
+            alert('You click like action, row: ' + JSON.stringify(row));
+            var data = $.ajax({
+                url: '/changeBusLine',
+                type: 'get',
+                data: row,
+                dataType: 'json',
+                async: false,
+                success: function (data) {
+                },
+                error: function () {
+                }
+            });
+        },
+        'click #delete': function (e, value, row, index) {
+            alert(row.busLineId);
+            var data = $.ajax({
+                url: '/deleteBusLine',
+                type: 'get',
+                data: 'busLineId=' + row.busLineId,
+                dataType: 'json',
+                async: false,
+                success: function (data) {
+                },
+                error: function () {
+                }
+            });
+        }
+    };
+
+    function selChange(obj) {
+
+        var oi = obj.options[obj.selectedIndex].value;
+
+        var ot = obj.options[obj.selectedIndex].innerText;
+        if (oi == "1") {
+            document.getElementById("form").innerHTML = "<div class='form-group'>" +
+                "<label for='busLineName'>线路名称</label>" +
+                "<input type='text' class='form-control' id='busLineName'>" +
+                "</div>" +
+                "<button type='button' class='btn btn-default' onclick='search()'>搜索</button>";
+        } else if (oi == "2") {
+            document.getElementById("form").innerHTML = "<div class='form-group'>" +
+                "<label for='busStation'>站点名称</label>" +
+                "<input type='text' class='form-control' id='busStation'>" +
+                "</div>" +
+                "<button type='button' class='btn btn-default' onclick='search()'>搜索</button>";
+        } else if (oi == "3") {
+            document.getElementById("form").innerHTML = "<div class='form-group'>" +
+                "<label for='startStation'>开始站点</label>" +
+                "<input type='text' class='form-control' id='startStation'>" +
+                "</div>" +
+                "<div class='form-group'>" +
+                "<label id='endStation'>到达站点</label>" +
+                "<input type='text' class='form-control' id='endStation'>" +
+                "</div>" +
+                "<button type='button' class='btn btn-default' onclick='search()'>搜索</button>";
+        } else if (oi == "4") {
+            document.getElementById("form").innerHTML = "<div class='form-group'>" +
+                "<label for='exampleInputName2'>模糊查询</label>" +
+                "<input type='text' class='form-control'>" +
+                "</div>" +
+                "<button type='button' class='btn btn-default'>搜索</button>";
+        }
+    }
+
+    function search() {
+        var oi = $("#way").val();
+        if (oi == "1") {
+            $table.bootstrapTable('refresh', {url: '/searchByBusLine?busLineName=' + $("#busLineName").val()});
+        } else if (oi == "2") {
+            $table.bootstrapTable('refresh', {url: '/searchByBusStation?busStation=' + $("#busStation").val()});
+        } else if (oi == "3") {
+            $table.bootstrapTable('refresh', {url: '/searchByStartAndEnd?startStation=' + $("#startStation").val() + '&endStation=' + $("#startStation").val()});
+        } else if (oi == "4") {
+            data = $("#busLineId").val();
+        }
+    }
+
+    function detailFormatter(index, row) {
+        var busLineId;
+        $.each(row, function (key, value) {
+            if (key == 'busLineId') {
+                busLineId = value;
+            }
+        });
+        var html = [];
+        var data = $.ajax({
+            url: '/busStationData',
+            type: 'get',
+            data: 'busLineId=' + busLineId,
+            dataType: 'json',
+            async: false,
+            success: function (data) {
+            },
+            error: function () {
+            }
+        }).responseJSON;
+
+        for (var i = 0; i < data.length; i++) {
+            html.push("<p> 第" + data[i].seqNumber + "站 站名:" + data[i].busStationName + "到站时间" + data[i].arrivalTime + "</p>");
+        }
+        return html.join('');
+    }
+
+    function operateFormatter(value, row, index) {
+        return [
+            '<a id="change" class="btn btn-default btn-xs">',
+            '修改',
+            '</a>   ',
+            '<a id="delete" class="btn btn-danger btn-xs">',
+            '删除',
+            '</a>'
+        ].join('');
+    }
+
+</script>
+</body>
+</html>
